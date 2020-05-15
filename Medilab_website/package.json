@@ -1,0 +1,16 @@
+{
+  "name": "medilab",
+  "version": "1.0.0",
+  "description": "Thanks for downloading this theme!",
+  "main": "index.html",
+  "scripts": {
+    "start": "npm run lite",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lite": "lite-server"
+  },
+  "author": "Codebugged",
+  "license": "ISC",
+  "devDependencies": {
+    "lite-server": "^2.5.4"
+  }
+}

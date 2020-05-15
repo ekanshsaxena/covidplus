@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Upload</title>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+<style>
+    body{
+        font-family: 'Open Sans', sans-serif;
+       background: url({{ url_for('static', filename='img/bg1.jpg') }}) no-repeat;
+       background-size:cover;
+      min-height: 600px;
+       position: relative;
+    }
+[type="file"] {
+  height: 0;
+  overflow: hidden;
+  width: 0;
+}
+
+[type="file"] + label {
+  height:50px;
+  width:200px;
+  background: grey;
+  border: none;
+  border-radius: 5px;
+  color: #fff;
+  cursor: pointer;
+  display: inline-block;
+    font-family: 'Poppins', sans-serif;
+    font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 0;
+  outline: none;
+  padding: 10px 20px 10px 30px;
+  position: relative;
+  transition: none;
+  vertical-align: middle;
+  box-shadow: 0 6px lightgrey;
+  }
+  label:hover {
+    box-shadow:0 4px darken(lightgrey,50%);
+    top:2px;
+  }
+
+  [type="submit"]{
+    height:40px;
+    width:100px;
+    background-color: blue;
+    border: 1px solid lightgreen;
+    font-weight:bold;
+    margin-left: 40px;
+    cursor: pointer;
+    color:white;
+  }
+  #upload-button:hover{
+    background-color: green;
+  }
+#header{
+    background-color: black;
+    width: 100%;
+    height:80px;
+    padding-left: 60px;
+}
+#header > a{
+    margin-top: -80px;
+margin-left: 90%;
+}
+</style>
+</head>
+<body>
+
+<!-- navigation -->
+<div class="container-fluid" id="header">
+    <img src="/static/img/covi3.png" width=120px height=70px>
+    <a role="button" class="btn btn-success" href="http://covidplus.live"><strong>Go Back</strong>
+                     </a>
+</div>
+    
+<div class="container" style="padding-top: 10rem;margin-top:5% ;margin-left: 10%;">
+<div class="row">
+    <div class="col-8">
+    <h2 style="color: black;margin-bottom: 30px;">&#8618; Select <strong style="color:red;">X-ray</strong> Image to start Diagonosis</h2>
+</div>
+</div>
+<div class="row">
+  <div class="col-2 col-sm-2 offset-1 offset-sm-1">
+<form id="upload-form" action="{{ url_for('upload') }}" method="POST" enctype="multipart/form-data">
+    <input id="file-picker" class="d-flex justify-content-center" type="file" name="file" accept="image/*" multiple>
+    <label for="file-picker" />choose a file</label>
+    <br>
+    <p>
+    <div id="msg"></div>
+    <input type="submit" value="Upload!" id="upload-button"></p>
+</form>
+</div>
+</div>
+<br><br><br>
+<div class="row">
+    <div class="col-9">
+    <h2 style="color: black;margin-bottom: 30px;">&#8618; Select <strong style="color:red;">CT-Scan</strong> Image to start Diagonosis</h2>
+</div>
+</div>
+<div class="row">
+<div class="col-2 col-sm-2 offset-1 offset-sm-1">
+<form id="upload-form" action="{{ url_for('ct_upload') }}" method="POST" enctype="multipart/form-data">
+    <input id="ct_file-picker" class="d-flex justify-content-center" type="file" name="file" accept="image/*" multiple>
+    <label for="ct_file-picker" />choose a file</label>
+    <br>
+    <p>
+    <div id="ct_msg"></div>
+    <input type="submit" value="Upload!" id="upload-button"></p>
+</form>
+</div>
+</div>
+
+
+</div>
+</body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+<script>
+
+    $("#file-picker").change(function(){
+
+        var input = document.getElementById('file-picker');
+
+        for (var i=0; i<input.files.length; i++)
+        {
+        //koala.jpg, koala.JPG substring(index) lastIndexOf('a') koala.1.jpg
+            var ext= input.files[i].name.substring(input.files[i].name.lastIndexOf('.')+1).toLowerCase()
+
+            if ((ext == 'jpg') || (ext == 'png') || (ext == 'jpeg'))
+            {
+                $("#msg").text("Files are supported")
+            }
+            else
+            {
+                $("#msg").text("Files are NOT supported")
+                document.getElementById("file-picker").value ="";
+            }
+
+        }
+
+
+    } );
+
+    $("#ct_file-picker").change(function(){
+
+        var input = document.getElementById('ct_file-picker');
+
+        for (var i=0; i<input.files.length; i++)
+        {
+        //koala.jpg, koala.JPG substring(index) lastIndexOf('a') koala.1.jpg
+            var ext= input.files[i].name.substring(input.files[i].name.lastIndexOf('.')+1).toLowerCase()
+
+            if ((ext == 'jpg') || (ext == 'png') || (ext == 'jpeg'))
+            {
+                $("#ct_msg").text("Files are supported")
+            }
+            else
+            {
+                $("#ct_msg").text("Files are NOT supported")
+                document.getElementById("ct_file-picker").value ="";
+            }
+
+        }
+
+
+    } );
+
+</script>
+</html>
